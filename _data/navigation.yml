@@ -1,0 +1,6 @@
+- name: gallery
+  link: /stanem-pages/
+- name: about
+  link: /stanem-pages/about.html
+- name: contact information
+  link: /stanem-pages/contacts.html
