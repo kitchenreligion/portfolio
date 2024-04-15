@@ -1,6 +1,6 @@
 - name: gallery
-  link: /portfolio/
+  link: /
 - name: about
-  link: /portfolio/about.html
+  link: /about.html
 - name: contact information
-  link: /portfolio/contacts.html
+  link: /contacts.html
