@@ -1,6 +1,6 @@
 ---
-title: SAJT DLYA STEFO4KI
-subtitle: food fotography you want
+title: Kitchen Religion Portfolio
+subtitle: food photography you want
 layout: about
 ---
 
