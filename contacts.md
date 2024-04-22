@@ -1,5 +1,5 @@
 ---
-title: Kitchen Religion Photo
+title: Kitchen Religion
 subtitle: food photography you want
 phone_number: 07733325999
 email_address: kitchenreligionphoto@gmail.com
