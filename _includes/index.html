@@ -1,3 +1,22 @@
+<script>
+  Promise.all(
+    Array.from(document.images)
+      .filter((img) => !img.complete)
+      .map(
+        (img) =>
+          new Promise((resolve) => {
+            img.onload = img.onerror = resolve;
+          })
+      )
+  ).then(() => {
+    var elem = document.querySelector(".grid");
+    var msnry = new Masonry(elem, {
+      itemSelector: ".mm-columns__item",
+      gutter: 10,
+    });
+  });
+</script>
+
 <div class="mm-columns">
   {% for item in site.data.index %}
   <div class="mm-columns__item">
