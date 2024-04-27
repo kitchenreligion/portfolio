@@ -3,11 +3,13 @@ body {
   color: #8f8f8f;
   font-family: "Helvetica Neue", Helvetica, Arial, sans-serif, "Roboto";
   text-align: center;
+  height: 100%;
 }
 
 html {
   box-sizing: border-box;
   font-size: 16px;
+  height: 100%;
 }
 
 *,
@@ -20,6 +22,10 @@ html {
   max-width: 1200px;
   margin-right: auto;
   margin-left: auto;
+  min-height: 95%;
+  /* Equal to height of footer */
+  /* But also accounting for potential margin-bottom of last child */
+  margin-bottom: -50px;
 }
 
 h1 {
@@ -51,10 +57,13 @@ h2 {
   padding: 0 0 40px 0;
 }
 
-.footer {
-  position: fixed;
-  left: 0;
-  bottom: 0;
-  width: 100%;
+.footer,
+.push {
+  height: 50px;
+}
+
+footer {
   background-color: white;
+  line-height: 50px;
+  padding: 0 20px;
 }
