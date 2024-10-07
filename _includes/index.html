@@ -1,18 +1,33 @@
 <script>
-  Promise.all(
-    Array.from(document.images)
-      .filter((img) => !img.complete)
-      .map(
-        (img) =>
-          new Promise((resolve) => {
-            img.onload = img.onerror = resolve;
-          })
-      )
-  ).then(() => {
-    var elem = document.querySelector("#gallery");
-    var msnry = new Masonry(elem, {
-      itemSelector: ".mm-columns__item",
-      gutter: 10,
+  document.addEventListener('DOMContentLoaded', function () {
+    const lazyImages = document.querySelectorAll('img[data-src]');
+    const imageObserver = new IntersectionObserver((entries, observer) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          const img = entry.target;
+          img.src = img.dataset.src;
+          img.removeAttribute('data-src');
+          
+          img.onload = () => {
+            // Recalculate Masonry layout after the image is loaded
+            $('#gallery').masonry('layout');
+          };
+          
+          observer.unobserve(img);
+        }
+      });
+    });
+
+    lazyImages.forEach(image => {
+      imageObserver.observe(image);
+    });
+
+    // Initialize Masonry after all images have loaded
+    $("#gallery").imagesLoaded(function () {
+      $(".mm-columns__item").masonry({
+        itemSelector: ".mm-columns__img",
+        percentPosition: true,
+      });
     });
   });
 </script>
@@ -20,10 +35,13 @@
 <div class="mm-columns" id="gallery">
   {% for item in site.data.index %}
   <div class="mm-columns__item">
-    <a href="{{ item.src_url}}" target="_blank">
+    <a href="{{ item.src_url}}"  target="_blank">
       <img
         class="mm-columns__img"
-        src="{{ item.src_url }}"
+        loading="lazy"
+        data-src="{{ item.src_url }}"
+        src="assets/images/tort.jpg"
+        onerror="this.src='assets/images/tort.jpg'"
         alt="{{ item.name }}"
       />
     </a>
