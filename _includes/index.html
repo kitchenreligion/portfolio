@@ -1,4 +1,23 @@
-<div class="mm-columns">
+<script>
+  Promise.all(
+    Array.from(document.images)
+      .filter((img) => !img.complete)
+      .map(
+        (img) =>
+          new Promise((resolve) => {
+            img.onload = img.onerror = resolve;
+          })
+      )
+  ).then(() => {
+    var elem = document.querySelector("#gallery");
+    var msnry = new Masonry(elem, {
+      itemSelector: ".mm-columns__item",
+      gutter: 10,
+    });
+  });
+</script>
+
+<div class="mm-columns" id="gallery">
   {% for item in site.data.index %}
   <div class="mm-columns__item">
     <a href="{{ item.src_url}}" target="_blank">
