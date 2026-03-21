@@ -40,7 +40,8 @@
       <div class="push"></div>
     </div>
     <footer class="footer">
-      <small>©2024 kitchenreligion.co.uk - All Rights Reserved</small>
+      <small>©<span id="footer-year"></span> kitchenreligion.co.uk - All Rights Reserved</small>
+      <script>document.getElementById('footer-year').textContent = new Date().getFullYear();</script>
     </footer>
   </body>
 </html>
