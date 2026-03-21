@@ -1,6 +1,6 @@
 ---
-title: Kitchen Religion 
-subtitle: food photography and styling by Stephanie
+title: Kitchen Religion
+subtitle: food photography · styling · recipe development by Stephanie
 layout: about
 ---
 
