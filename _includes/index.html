@@ -1,48 +1,68 @@
+<style>
+  .loading {
+    opacity: 0;
+    transition: opacity 0.3s ease-in;
+  }
+  .loaded {
+    opacity: 1;
+  }
+</style>
+
 <script>
-  document.addEventListener('DOMContentLoaded', function () {
-    const lazyImages = document.querySelectorAll('img[data-src]');
-    const imageObserver = new IntersectionObserver((entries, observer) => {
-      entries.forEach(entry => {
-        if (entry.isIntersecting) {
-          const img = entry.target;
-          img.src = img.dataset.src;
-          img.removeAttribute('data-src');
-          
-          img.onload = () => {
-            // Recalculate Masonry layout after the image is loaded
-            $('#gallery').masonry('layout');
-          };
-          
-          observer.unobserve(img);
-        }
-      });
+  document.addEventListener('DOMContentLoaded', function() {
+    const grid = document.querySelector(".mm-columns");
+    if (!grid) return;
+
+    const masonry = new Masonry(grid, {
+      itemSelector: ".mm-columns__item",
+      gutter: 10,
+      initLayout: false
     });
 
-    lazyImages.forEach(image => {
-      imageObserver.observe(image);
+    let layoutScheduled = false;
+    function scheduleLayout() {
+      if (!layoutScheduled) {
+        layoutScheduled = true;
+        requestAnimationFrame(() => {
+          masonry.layout();
+          layoutScheduled = false;
+        });
+      }
+    }
+
+    function handleImageLoad(img) {
+      img.classList.add('loaded');
+      scheduleLayout();
+    }
+
+    document.querySelectorAll('.mm-columns__img').forEach(img => {
+      img.classList.add('loading');
+      if (img.complete) {
+        handleImageLoad(img);
+      } else {
+        const onReady = () => {
+          handleImageLoad(img);
+          img.removeEventListener('load', onReady);
+          img.removeEventListener('error', onReady);
+        };
+        img.addEventListener('load', onReady);
+        img.addEventListener('error', onReady);
+      }
     });
 
-    // Initialize Masonry after all images have loaded
-    $("#gallery").imagesLoaded(function () {
-      $(".mm-columns__item").masonry({
-        itemSelector: ".mm-columns__img",
-        percentPosition: true,
-      });
-    });
+    masonry.layout();
   });
 </script>
 
-<div class="mm-columns" id="gallery">
+<div class="mm-columns">
   {% for item in site.data.index %}
   <div class="mm-columns__item">
-    <a href="{{ item.src_url}}"  target="_blank">
+    <a href="{{ item.src_url }}" target="_blank">
       <img
         class="mm-columns__img"
-        loading="lazy"
-        data-src="{{ item.src_url }}"
-        src="assets/images/tort.jpg"
-        onerror="this.src='assets/images/tort.jpg'"
+        src="{{ item.src_url }}"
         alt="{{ item.name }}"
+        loading="lazy"
       />
     </a>
     <div class="overlay">{{ item.name }}</div>
