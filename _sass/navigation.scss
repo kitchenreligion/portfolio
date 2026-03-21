@@ -45,7 +45,8 @@ nav.stroke a:after {
   background: #333;
   height: 1px;
 }
-nav.stroke a:hover:after {
+nav.stroke a:hover:after,
+nav.stroke a.active:after {
   width: 100%;
 }
 
