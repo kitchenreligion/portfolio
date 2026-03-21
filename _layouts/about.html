@@ -13,7 +13,7 @@ layout: default
   "
 >
   <img
-    src="{{ site.data.about.photo_url }}"
+    src="{{ site.data.about.photo_url | default: '/assets/images/about.jpg' }}"
     alt="Stephanie"
     style="width: 300px; flex-shrink: 0; object-fit: cover; border-radius: 4px"
   />
