@@ -1,6 +1,6 @@
 ---
 title: Kitchen Religion
-subtitle: food photography you want
+subtitle: food photography and styling by Stephanie
 phone_number: 07733325999
 email_address: kitchenreligionphoto@gmail.com
 email_subject: Photoshoot Request
