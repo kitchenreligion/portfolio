@@ -2,13 +2,71 @@
 layout: default
 ---
 
-{{content}}
-<p></p>
-<a href="tel:{{page.phone_number}}">{{page.phone_number}}</a>
-<p></p>
-<a
-  href="mailto:{{page.email_address}}?subject={{page.email_subject}}&body={{page.email_body}}"
-  >{{page.email_address}}
-</a>
-<p></p>
-<p></p>
+<style>
+  .contacts-layout {
+    max-width: 480px;
+    margin: 0 auto;
+    color: #2a2a2a;
+  }
+  .contacts-intro {
+    font-size: 15px;
+    color: #8f8f8f;
+    margin-bottom: 40px;
+    line-height: 1.6;
+  }
+  .contacts-list {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+  }
+  .contacts-item {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+  }
+  .contacts-item__icon {
+    width: 40px;
+    height: 40px;
+    flex-shrink: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 1px solid #e0e0e0;
+    border-radius: 50%;
+    color: #8f8f8f;
+  }
+  .contacts-item__link {
+    font-size: 15px;
+    color: #2a2a2a;
+    text-decoration: none;
+    letter-spacing: 0.01em;
+    border-bottom: 1px solid transparent;
+    transition: border-color 0.2s ease;
+  }
+  .contacts-item__link:hover {
+    border-bottom-color: #2a2a2a;
+  }
+</style>
+
+<div class="contacts-layout">
+  <div class="contacts-intro">{{content}}</div>
+  <div class="contacts-list">
+    <div class="contacts-item">
+      <div class="contacts-item__icon">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+          <path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 013.07 9.81 19.79 19.79 0 01.07 1.18 2 2 0 012.04 0h3a2 2 0 012 1.72c.127.96.361 1.903.7 2.81a2 2 0 01-.45 2.11L6.09 7.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0122 14.92z"/>
+        </svg>
+      </div>
+      <a class="contacts-item__link" href="tel:{{page.phone_number}}">{{page.phone_number}}</a>
+    </div>
+    <div class="contacts-item">
+      <div class="contacts-item__icon">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+          <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/>
+          <polyline points="22,6 12,13 2,6"/>
+        </svg>
+      </div>
+      <a class="contacts-item__link" href="mailto:{{page.email_address}}?subject={{page.email_subject}}&body={{page.email_body}}">{{page.email_address}}</a>
+    </div>
+  </div>
+</div>
