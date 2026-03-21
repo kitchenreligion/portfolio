@@ -11,12 +11,48 @@ layout: default
     margin: 0 auto;
     color: #131215;
   }
-  .about-photo {
+  .about-photo-wrap {
     width: 300px;
     flex-shrink: 0;
-    object-fit: cover;
+    position: relative;
     border-radius: 50%;
     aspect-ratio: 1 / 1;
+    background: #f5f5f5;
+  }
+
+  .about-photo-wrap::after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 22px;
+    height: 22px;
+    border: 2px solid rgba(0, 0, 0, 0.1);
+    border-top-color: rgba(0, 0, 0, 0.35);
+    border-radius: 50%;
+    animation: spin 0.75s linear infinite;
+  }
+
+  .about-photo-wrap.loaded::after {
+    display: none;
+  }
+
+  @keyframes spin {
+    to { transform: translate(-50%, -50%) rotate(360deg); }
+  }
+
+  .about-photo {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 50%;
+    opacity: 0;
+    transition: opacity 0.3s ease-in;
+  }
+
+  .about-photo-wrap.loaded .about-photo {
+    opacity: 1;
   }
   .about-text {
     text-align: left;
@@ -32,17 +68,33 @@ layout: default
       flex-direction: column;
       align-items: center;
     }
-    .about-photo {
+    .about-photo-wrap {
       width: 200px;
     }
   }
 </style>
 
+<script>
+  document.addEventListener('DOMContentLoaded', function() {
+    const img = document.querySelector('.about-photo');
+    const wrap = document.querySelector('.about-photo-wrap');
+    const onReady = () => wrap.classList.add('loaded');
+    if (img.complete) {
+      onReady();
+    } else {
+      img.addEventListener('load', onReady);
+      img.addEventListener('error', onReady);
+    }
+  });
+</script>
+
 <div class="about-layout">
-  <img
-    src="{{ site.data.about.photo_url | default: '/assets/images/about.jpg' }}"
-    alt="Stephanie"
-    class="about-photo"
-  />
+  <div class="about-photo-wrap">
+    <img
+      src="{{ site.data.about.photo_url | default: '/assets/images/about.jpg' }}"
+      alt="Stephanie"
+      class="about-photo"
+    />
+  </div>
   <div class="about-text">{{content}}</div>
 </div>
