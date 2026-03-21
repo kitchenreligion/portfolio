@@ -1,6 +1,6 @@
 ---
 title: Kitchen Religion 
-subtitle: food photography you want
+subtitle: food photography and styling by Stephanie
 layout: about
 ---
 
