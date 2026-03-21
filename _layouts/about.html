@@ -2,8 +2,20 @@
 layout: default
 ---
 
-<div style="text-align: center">
-  <div style="display: inline-block; text-align: justify; max-width: 750px; color: #131215;">
-    {{content}}
-  </div>
+<div
+  style="
+    display: flex;
+    gap: 48px;
+    align-items: flex-start;
+    max-width: 900px;
+    margin: 0 auto;
+    color: #131215;
+  "
+>
+  <img
+    src="{{ site.data.about.photo_url }}"
+    alt="Stephanie"
+    style="width: 300px; flex-shrink: 0; object-fit: cover; border-radius: 4px"
+  />
+  <div style="text-align: justify">{{content}}</div>
 </div>
