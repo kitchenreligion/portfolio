@@ -3,12 +3,12 @@
 }
 
 .mm-columns-wrap::after {
-  content: '';
+  content: "";
   position: absolute;
   bottom: 0;
   left: 0;
   right: 0;
-  height: 140px;
+  height: 240px;
   background: linear-gradient(to bottom, transparent, white);
   pointer-events: none;
 }
