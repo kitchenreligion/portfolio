@@ -2,35 +2,43 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
-    <!--  Essential META Tags -->
-    <meta property="og:title" content="{{ page.title }}" />
-    <meta property="og:type" content="website" />
-    <meta
-      property="og:image"
-      content="https://lh3.googleusercontent.com/pw/AP1GczNHmQC1NBi0qpBnP2JXILIWUcLTQrQTZu9XqRlg17K6u_VGyg2iB9XCEK7u1UUeXd1ZXQPOlG6U3N8m60ERn0veBta6RWMRubsG9kfcG5IXk67ibQ8rgZWOyYUrffbG1HaxEAXieFlR7V6N2ylxXVef=w1191-h1488-s-no?authuser=0"
-    />
-    <meta property="og:url" content="https//kitchenreligion.co.uk" />
-    <meta name="twitter:card" content="summary_large_image" />
-
-    <!--  Non-Essential, But Recommended -->
-    <meta property="og:description" content="{{ page.subtitle }}" />
-
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>{{ page.title }}</title>
+    <title>{{ page.title }}{% if page.subtitle %} — {{ page.subtitle }}{% endif %}</title>
+    <meta name="description" content="{{ page.subtitle | default: page.title }}" />
+    <link rel="canonical" href="https://kitchenreligion.co.uk{{ page.url }}" />
+
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content="Kitchen Religion" />
+    <meta property="og:title" content="{{ page.title }}{% if page.subtitle %} — {{ page.subtitle }}{% endif %}" />
+    <meta property="og:description" content="{{ page.subtitle | default: page.title }}" />
+    <meta property="og:url" content="https://kitchenreligion.co.uk{{ page.url }}" />
+    <meta property="og:image" content="https://lh3.googleusercontent.com/pw/AP1GczNHmQC1NBi0qpBnP2JXILIWUcLTQrQTZu9XqRlg17K6u_VGyg2iB9XCEK7u1UUeXd1ZXQPOlG6U3N8m60ERn0veBta6RWMRubsG9kfcG5IXk67ibQ8rgZWOyYUrffbG1HaxEAXieFlR7V6N2ylxXVef=w1191-h1488-s-no?authuser=0" />
+    <meta property="og:image:width" content="1191" />
+    <meta property="og:image:height" content="1488" />
+
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="{{ page.title }}{% if page.subtitle %} — {{ page.subtitle }}{% endif %}" />
+    <meta name="twitter:description" content="{{ page.subtitle | default: page.title }}" />
+    <meta name="twitter:image" content="https://lh3.googleusercontent.com/pw/AP1GczNHmQC1NBi0qpBnP2JXILIWUcLTQrQTZu9XqRlg17K6u_VGyg2iB9XCEK7u1UUeXd1ZXQPOlG6U3N8m60ERn0veBta6RWMRubsG9kfcG5IXk67ibQ8rgZWOyYUrffbG1HaxEAXieFlR7V6N2ylxXVef=w1191-h1488-s-no?authuser=0" />
+
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "Person",
+      "name": "Stephanie",
+      "jobTitle": "Food Photographer and Stylist",
+      "url": "https://kitchenreligion.co.uk",
+      "email": "kitchenreligionphoto@gmail.com",
+      "knowsAbout": ["food photography", "food styling", "recipe development", "content creation"]
+    }
+    </script>
+
     <link href="/assets/css/styles.css" rel="stylesheet" />
     <link
       href="https://fonts.googleapis.com/css?family=Roboto:500,900,100,300,700,400"
       rel="stylesheet"
       type="text/css"
     />
-    <!-- Load an icon library to show a hamburger menu (bars) on small screens -->
-    <link
-      rel="stylesheet"
-      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"
-    />
-    <meta name="description" content="{{ page.title }}" />
-    <script src="https://unpkg.com/masonry-layout@4/dist/masonry.pkgd.min.js"></script>
-    <script src="/assets/js/content.js"></script>
   </head>
   <body>
     <div class="container">
