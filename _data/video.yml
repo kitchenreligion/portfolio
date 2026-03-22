@@ -1,3 +1,2 @@
-# Добавляй видео в формате:
-# - url: https://player.vimeo.com/video/VIDEO_ID
-#   name: Название видео
+- url: https://player.vimeo.com/video/VIDEO_ID
+  name: video_1
