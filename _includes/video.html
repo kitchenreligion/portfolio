@@ -1,0 +1,72 @@
+<style>
+  .video-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px;
+  }
+
+  .video-item {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  .video-item__embed {
+    position: relative;
+    aspect-ratio: 16 / 9;
+    background: #f0f0f0;
+    border-radius: 4px;
+    overflow: hidden;
+  }
+
+  .video-item__embed iframe {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    border: none;
+  }
+
+  .video-item__name {
+    font-size: 13px;
+    font-weight: 300;
+    letter-spacing: 0.04em;
+    color: #555;
+    text-align: left;
+  }
+
+  @media (max-width: 900px) {
+    .video-grid {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+
+  @media (max-width: 560px) {
+    .video-grid {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>
+
+{% if site.data.video.size > 0 %}
+<div class="video-grid">
+  {% for item in site.data.video %}
+  <div class="video-item">
+    <div class="video-item__embed">
+      <iframe
+        src="{{ item.url }}?title=0&byline=0&portrait=0"
+        allow="autoplay; fullscreen; picture-in-picture"
+        allowfullscreen
+        loading="lazy"
+        title="{{ item.name }}"
+      ></iframe>
+    </div>
+    {% if item.name %}
+    <div class="video-item__name">{{ item.name }}</div>
+    {% endif %}
+  </div>
+  {% endfor %}
+</div>
+{% else %}
+<p style="color: #aaa; text-align: center; padding: 60px 0">Loading...</p>
+{% endif %}
