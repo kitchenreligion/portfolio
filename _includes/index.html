@@ -1,38 +1,6 @@
 <style>
-  .loading {
-    opacity: 0;
-    transition: opacity 0.3s ease-in;
-  }
-  .loaded {
-    opacity: 1;
-  }
-
   .mm-columns__item {
     cursor: pointer;
-    overflow: hidden;
-  }
-
-  .mm-columns__item.item-loading {
-    min-height: 200px;
-    background: #f5f5f5;
-  }
-
-  .mm-columns__item.item-loading::after {
-    content: '';
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    width: 22px;
-    height: 22px;
-    border: 2px solid rgba(0, 0, 0, 0.1);
-    border-top-color: rgba(0, 0, 0, 0.35);
-    border-radius: 50%;
-    animation: spin 0.75s linear infinite;
-  }
-
-  @keyframes spin {
-    to { transform: translate(-50%, -50%) rotate(360deg); }
   }
 
   .mm-columns__item:hover .mm-columns__img {
@@ -42,6 +10,42 @@
 
   .mm-columns__img {
     transition: transform 0.3s ease;
+    display: block;
+  }
+
+  .gallery-wrap {
+    position: relative;
+    min-height: 200px;
+  }
+
+  .gallery-wrap .mm-columns {
+    opacity: 0;
+    transition: opacity 0.5s ease;
+  }
+
+  .gallery-wrap.gallery-ready .mm-columns {
+    opacity: 1;
+  }
+
+  .gallery-spinner {
+    position: absolute;
+    top: 120px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 24px;
+    height: 24px;
+    border: 2px solid rgba(0, 0, 0, 0.1);
+    border-top-color: rgba(0, 0, 0, 0.35);
+    border-radius: 50%;
+    animation: spin 0.75s linear infinite;
+  }
+
+  .gallery-wrap.gallery-ready .gallery-spinner {
+    display: none;
+  }
+
+  @keyframes spin {
+    to { transform: translateX(-50%) rotate(360deg); }
   }
 
   /* Lightbox */
@@ -126,19 +130,30 @@
     const lbCounter = document.getElementById('lightbox-counter');
     let current = 0;
 
+    const wrap = document.querySelector('.gallery-wrap');
+    const THRESHOLD = Math.min(8, items.length);
+    let loadedCount = 0;
+
+    function revealGallery() {
+      wrap.classList.add('gallery-ready');
+    }
+
+    const timeout = setTimeout(revealGallery, 3000);
+
     items.forEach(item => {
       const img = item.querySelector('.mm-columns__img');
-      img.classList.add('loading');
-      item.classList.add('item-loading');
       const onReady = () => {
-        img.classList.add('loaded');
-        item.classList.remove('item-loading');
         img.removeEventListener('load', onReady);
         img.removeEventListener('error', onReady);
+        loadedCount++;
+        if (loadedCount >= THRESHOLD) {
+          clearTimeout(timeout);
+          revealGallery();
+        }
       };
       if (img.complete) {
-        img.classList.add('loaded');
-        item.classList.remove('item-loading');
+        loadedCount++;
+        if (loadedCount >= THRESHOLD) revealGallery();
       } else {
         img.addEventListener('load', onReady);
         img.addEventListener('error', onReady);
@@ -191,6 +206,8 @@
   });
 </script>
 
+<div class="gallery-wrap">
+<div class="gallery-spinner"></div>
 <div class="mm-columns">
   {% for item in site.data.index %}
   <div class="mm-columns__item">
@@ -205,4 +222,5 @@
     <div class="overlay">{{ item.name }}</div>
   </div>
   {% endfor %}
+</div>
 </div>
